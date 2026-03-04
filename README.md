@@ -1,23 +1,46 @@
-Personal Portfolio (PHP + MySQL)
+💼 Personal Portfolio Website
+Welcome to my personal portfolio website!
+This project showcases my skills, projects, and experience as a Full-Stack Web Developer.
 
-Setup
+🚀 About The Project
+This is a dynamic portfolio website built using PHP and MySQL.
+It allows me to manage and display my projects directly from a database.
 
-1. Copy the `yoni` folder into your XAMPP `htdocs` (already under `C:/xampp5/htdocs/yoni`).
-2. Import the SQL file into MySQL (phpMyAdmin or CLI):
+The website includes:
 
-   mysql -u root -p < C:/xampp5/htdocs/yoni/db_init.sql
+🏠 Home page with featured projects
+📂 Projects page with all projects
+🛠 Admin panel to manage projects
+🗂 Dynamic project loading from database
+🔗 External links to live demos and GitHub repositories
+🛠 Built With
+HTML5
+CSS3
+JavaScript
+PHP (Core PHP)
+MySQL
+XAMPP (Local Development)
+✨ Features
+Responsive design
+Dynamic project management
+Secure database queries using prepared statements
+Admin authentication system
+Clean and modern UI
+#Skills Summary
 
-3. If you use XAMPP default, DB user is `root` with empty password. Adjust `includes/db.php` if different.
-4. Open http://localhost/yoni/index.php
-
-Admin
-
-- Visit http://localhost/yoni/admin/login.php
-- If no admin exists, login with username `admin` and password `admin123` once; the admin account will be created.
-- After login you can add/edit/delete projects.
-
-Notes
-
-- Replace the placeholder admin password hash in `db_init.sql` if you prefer to pre-create admin via SQL.
-- This is a minimal scaffold. Enhance validation, file uploads, and security for production.
-  ![alt text](image.png)
+Frontend
+HTML5 – Semantic markup for accessible web pages
+CSS3 – Flexbox, Grid, responsive layouts, animations
+JavaScript – DOM manipulation, event handling, AJAX
+Backend
+PHP – Core PHP, OOP basics, server-side logic
+MySQL – Database design, queries, joins, prepared statements
+Full-Stack & Tools
+XAMPP – Local server environment (Apache + MySQL + PHP)
+Git & GitHub – Version control, repository management
+REST APIs – Understanding CRUD operations
+Deployment – Hosting projects on InfinityFree / Netlify
+Optional/Soft Skills
+Debugging & problem-solving
+Project structuring & modular code
+Documentation & portfolio presentation
