@@ -1,0 +1,15 @@
+:root {
+    --bg-1: #0f1724;
+    --bg-2: #4f46e5;
+    --accent: #f59e0b;
+    --muted: #6b7280;
+}
+body.home-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    color: #0f1724;
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(79,70,229,0.12), transparent),
+                linear-gradient(135deg, var(--bg-2) 0%, #9333ea 60%, #6d28d9 100%);
+}
+.muted { color: var(--muted); }
