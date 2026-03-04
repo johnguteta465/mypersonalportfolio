@@ -1,26 +1,26 @@
-💼 Personal Portfolio Website
+ Personal Portfolio Website
 Welcome to my personal portfolio website!
 This project showcases my skills, projects, and experience as a Full-Stack Web Developer.
 
-🚀 About The Project
+ About The Project
 This is a dynamic portfolio website built using PHP and MySQL.
 It allows me to manage and display my projects directly from a database.
 
 The website includes:
 
-🏠 Home page with featured projects
-📂 Projects page with all projects
-🛠 Admin panel to manage projects
-🗂 Dynamic project loading from database
-🔗 External links to live demos and GitHub repositories
-🛠 Built With
+ Home page with featured projects
+ Projects page with all projects
+ Admin panel to manage projects
+ Dynamic project loading from database
+ External links to live demos and GitHub repositories
+ Built With
 HTML5
 CSS3
 JavaScript
 PHP (Core PHP)
 MySQL
 XAMPP (Local Development)
-✨ Features
+ Features
 Responsive design
 Dynamic project management
 Secure database queries using prepared statements
@@ -44,3 +44,6 @@ Optional/Soft Skills
 Debugging & problem-solving
 Project structuring & modular code
 Documentation & portfolio presentation
+<img width="1853" height="782" alt="image" src="https://github.com/user-attachments/assets/80ec6433-90af-417a-ba7f-14bc26bc80e7" />
+
+
