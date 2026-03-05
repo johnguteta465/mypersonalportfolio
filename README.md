@@ -1,57 +1,100 @@
- Personal Portfolio Website
-Welcome to my personal portfolio website!
-This project showcases my skills, projects, and experience as a Full-Stack Web Developer.
 
- About The Project
-This is a dynamic portfolio website built using PHP and MySQL.
-It allows me to manage and display my projects directly from a database.
+  Personal Portfolio
 
-The website includes:
+## About Me
 
- Home page with featured projects
- Projects page with all projects
- Admin panel to manage projects
- Dynamic project loading from database
- External links to live demos and GitHub repositories
- Built With
-HTML5
-CSS3
-JavaScript
-PHP (Core PHP)
-MySQL
-XAMPP (Local Development)
- Features
-Responsive design
-Dynamic project management
-Secure database queries using prepared statements
-Admin authentication system
-Clean and modern UI
-#Skills Summary
+I am a "Full-Stack Developer and Trainer" passionate about building modern, scalable web applications. I have hands-on experience in both "front-end and back-end development", creating robust systems with clean code and user-friendly design.
 
-Frontend
-HTML5 – Semantic markup for accessible web pages
-CSS3 – Flexbox, Grid, responsive layouts, animations
-JavaScript – DOM manipulation, event handling, AJAX
-Backend
-PHP – Core PHP, OOP basics, server-side logic
-MySQL – Database design, queries, joins, prepared statements
-Full-Stack & Tools
-XAMPP – Local server environment (Apache + MySQL + PHP)
-Git & GitHub – Version control, repository management
-REST APIs – Understanding CRUD operations
-Deployment – Hosting projects on InfinityFree / Netlify
-Optional/Soft Skills
-Debugging & problem-solving
-Project structuring & modular code
-Documentation & portfolio presentation
+I enjoy solving real-world problems through technology and helping others learn programming through practical training and mentorship.
+
+My approach focuses on:
+
+* Writing clean and maintainable code
+* Building modern and responsive interfaces
+* Continuously learning and improving technical skills
+
+---
+
+🚀 Core Expertise
+
+##Front-End Development
+
+* HTML5
+* CSS3
+* JavaScript
+* React.js
+* Angular
+
+I build responsive and interactive user interfaces that provide smooth user experiences.
 
 
-see my portfolio👇👇👇
+## Back-End & Database
 
-https://yonaspersonalportfolio.free.nf/
+* PHP
+* Node.js
+* MySQL
+* MongoDB
+
+I develop server-side applications, APIs, and database systems that power dynamic web applications.
+
+
+🎓 Training & Mentorship
+
+* Vue.js
+* Django (Python)
+* Python
+
+I enjoy teaching and mentoring aspiring developers by simplifying complex topics and guiding them through real-world coding projects.
+
+
+📜 Certifications
+
+Web Development for Beginners
+
+Fundamentals of HTML5, CSS3, and JavaScript, providing a strong foundation for modern web development.
+
+🎓 Full Stack Java Development (JS Stack)
+
+Comprehensive training covering:
+
+* HTML5
+* CSS3
+* JavaScript
+* React.js
+* Node.js
+* Angular
+* MongoDB
+* SQL
+
+
+ Portfolio Website
+
+You can view my live portfolio here:
+
+[https://yonaspersonalportfolio.free.nf/](https://yonaspersonalportfolio.free.nf/)
+
+---
+
+## Connect With Me
+
+Feel free to connect with me for collaboration, learning, or project opportunities.
+
+* GitHub
+* LinkedIn
+* Email
+
+
+Future Improvements
+
+* More full-stack projects
+* Open-source contributions
+* Advanced backend systems
+* Cloud deployment projects
+
 
 
 <img width="1853" height="782" alt="image" src="https://github.com/user-attachments/assets/80ec6433-90af-417a-ba7f-14bc26bc80e7" />
+
 
 
 
