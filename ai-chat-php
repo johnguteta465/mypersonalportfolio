@@ -1,0 +1,71 @@
+<?php
+
+// ✅ Replace with your actual OpenRouter key
+$apiKey = "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";
+
+header("Content-Type: application/json");
+
+// Handle incoming message
+$data = json_decode(file_get_contents("php://input"), true);
+$userMessage = $data["message"] ?? "";
+
+if (!$userMessage) {
+    echo json_encode(["reply" => "No message received."]);
+    exit;
+}
+
+// OpenRouter API endpoint
+$url = "https://openrouter.ai/api/v1/chat/completions";
+
+// Create request payload
+$payload = [
+    "model" => "deepseek/deepseek-chat",
+    "messages" => [
+        [
+            "role" => "system",
+            "content" => "
+You are a helpful and professional AI assistant for the developer portfolio of **Yonas Guteta**.
+
+Always respond using clean markdown formatting with:
+
+- **Bold section headers**
+- ✅ Emoji bullets where relevant
+- 📌 Short paragraphs or sections
+- 🔍 Helpful structure, even for general or unexpected questions
+
+You should answer any kind of question — technical, general, casual, or career-related — using a helpful tone. When needed, pull from portfolio knowledge like:
+- Skills: PHP, MySQL, JavaScript, React, Node.js, Python, Django
+- Projects: Library System, E-commerce Site
+- Roles: Full-stack developer, trainer, mentor
+- Certifications and real-world experience
+
+Never say 'I don't know' — instead, give your best educated response in a structured way.
+"
+        ],
+        [
+            "role" => "user",
+            "content" => $userMessage
+        ]
+    ]
+];
+
+// Make cURL request
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Content-Type: application/json",
+    "Authorization: Bearer $apiKey"
+]);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+// Handle response
+$result = json_decode($response, true);
+$reply = $result["choices"][0]["message"]["content"] ?? "Sorry, I couldn't find an answer.";
+
+echo json_encode([
+    "reply" => $reply
+]);
