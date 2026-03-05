@@ -44,6 +44,14 @@ Optional/Soft Skills
 Debugging & problem-solving
 Project structuring & modular code
 Documentation & portfolio presentation
+
+
+see my portfolio👇👇👇
+
+https://yonaspersonalportfolio.free.nf/
+
+
 <img width="1853" height="782" alt="image" src="https://github.com/user-attachments/assets/80ec6433-90af-417a-ba7f-14bc26bc80e7" />
+
 
 
