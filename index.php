@@ -1,169 +1,313 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
+/**
+ * Yonas Guteta's Portfolio - Home Page
+ * Action: Chat removed from footer, now a standalone page component.
+ */
 
 $bodyClass = 'home-page';
-include 'header.php';
+include 'header.php'; // Ensure your header.php doesn't contain the chat code
 include 'db.php';
+
+// 1. DATA LOGIC
+$featuredProjects = [];
+try {
+    $stmt = $mysqli->prepare("SELECT id, title, description, technologies, project_link, created_at FROM projects ORDER BY created_at DESC LIMIT 2");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $featuredProjects[] = $row;
+    }
+} catch (Exception $e) {
+    error_log($e->getMessage());
+}
 ?>
 
 <style>
+    :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --btn-gradient: linear-gradient(90deg, #6d28d9, #9333ea);
+        --radius: 12px;
+    }
+
+    /* Layout Styling */
     .home-hero {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 5.5rem 1rem 3rem;
-        gap: 1rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 5rem 1rem;
+        background: var(--primary-gradient);
         color: white;
-    }
-
-    .home-hero h1 {
-        font-size: clamp(2rem, 4vw, 3.6rem);
-        line-height: 1.2;
-        font-weight: 800;
-        margin: 0;
-    }
-
-    .home-hero p {
-        font-size: 1.1rem;
-        max-width: 800px;
-        margin: 0 auto;
-        opacity: 0.9;
+        text-align: center;
     }
 
     .featured-projects {
         max-width: 1200px;
-        margin: 3rem auto;
+        margin: 4rem auto;
         padding: 0 2rem;
     }
 
-    .featured-projects h2 {
-        text-align: center;
-        font-size: 2.5rem;
-        margin-bottom: 2rem;
-        color: #1e3a8a;
-    }
-
     .projects-grid {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 2rem;
-        overflow-x: auto;
-        padding-bottom: 1rem;
-        /* space for scrollbar */
-        scroll-snap-type: x mandatory;
     }
 
     .project-card {
-        flex: 0 0 300px;
-        /* fixed width, adjust as needed */
-        scroll-snap-align: start;
+        background: white;
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border: 1px solid #edf2f7;
     }
 
-    .project-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .project-card h3 {
-        color: #1e3a8a;
-        margin-bottom: 0.5rem;
-    }
-
-    .project-date {
-        color: #6b7280;
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-    }
-
-    .project-tech {
+    /* Side-by-Side Action Area */
+    .action-row {
         display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin: 1rem 0;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin-top: 4rem;
     }
 
-    .tech-badge {
-        background: #f3f4f6;
-        padding: 0.3rem 0.8rem;
+    .main-btn {
+        background: var(--btn-gradient);
+        color: white;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: transform 0.2s;
+    }
+
+    /* Small AI Trigger Button (next to explore button) */
+    .mini-ai-trigger {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: white;
+        border: 2px solid #764ba2;
+        padding: 0.8rem 1.2rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .mini-ai-trigger:hover {
+        background: #f3f0ff;
+        transform: scale(1.05);
+    }
+
+    .mini-ai-trigger span {
+        color: #764ba2;
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+
+    /* --- Chat Box UI (Original Size) --- */
+    #mainChat {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        width: 380px;
+        height: 550px;
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        z-index: 2000;
+        overflow: hidden;
+        /* Start hidden/minimized */
+        transform: translateY(calc(100% + 30px));
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Class to show the chat */
+    #mainChat.active {
+        transform: translateY(0);
+    }
+
+    #mainChat.minimized {
+        transform: translateY(calc(100% - 60px));
+    }
+
+    .chat-header {
+        background: var(--primary-gradient);
+        color: white;
+        padding: 1.2rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .chat-messages {
+        flex: 1;
+        padding: 1.2rem;
+        overflow-y: auto;
+        background: #f9fafb;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .msg {
+        padding: 0.8rem 1rem;
+        border-radius: 15px;
+        font-size: 0.95rem;
+        max-width: 85%;
+    }
+
+    .msg-ai {
+        background: #e9ecef;
+        color: #333;
+        align-self: flex-start;
+    }
+
+    .msg-user {
+        background: var(--primary-gradient);
+        color: white;
+        align-self: flex-end;
+    }
+
+    .chat-input-area {
+        display: flex;
+        padding: 1rem;
+        border-top: 1px solid #eee;
+        background: white;
+    }
+
+    .chat-input-area input {
+        flex: 1;
+        border: 1px solid #ddd;
         border-radius: 20px;
-        font-size: 0.85rem;
-        color: #4b5563;
+        padding: 0.5rem 1rem;
+        outline: none;
     }
 
-    .view-btn {
-        display: inline-block;
-        background: linear-gradient(90deg, #10b981, #06b6d4);
-        color: white;
-        padding: 0.6rem 1.2rem;
-        border-radius: 30px;
-        text-decoration: none;
-        font-weight: 600;
-        margin-top: 1rem;
+    .chat-input-area button {
+        background: none;
+        border: none;
+        color: #764ba2;
+        font-weight: bold;
+        margin-left: 10px;
+        cursor: pointer;
     }
 
-    .view-all {
-        text-align: center;
-        margin-top: 2rem;
-    }
+    @media (max-width: 600px) {
+        .action-row {
+            flex-direction: column;
+        }
 
-    .btn-primary {
-        display: inline-block;
-        background: linear-gradient(90deg, #6d28d9, #9333ea);
-        color: white;
-        padding: 0.8rem 2rem;
-        border-radius: 30px;
-        text-decoration: none;
-        font-weight: 600;
+        #mainChat {
+            width: 92%;
+            right: 4%;
+            left: 4%;
+        }
     }
 </style>
 
-<div class="home-hero">
-    <h1>Welcome to My Portfolio</h1>
-    <p>I build secure and dynamic full-stack web applications using PHP, MySQL, JavaScript, and modern web technologies.</p>
-</div>
+<main>
+    <section class="home-hero">
+        <h1>Hi, I'm Yonas</h1>
+        <p>Full-Stack Developer Specializing in Modern Web Solutions.</p>
+    </section>
 
-<div class="featured-projects">
-    <h2>Featured Projects</h2>
-    <div class="projects-grid">
-        <?php
-        $stmt = $mysqli->prepare("SELECT id, title, description, technologies, project_link, created_at FROM projects ORDER BY created_at DESC LIMIT 2");
-        $stmt->execute();
-        $result = $stmt->get_result();
+    <section class="featured-projects">
+        <div class="projects-grid">
+            <?php foreach ($featuredProjects as $project): ?>
+                <article class="project-card">
+                    <h3><?php echo htmlspecialchars($project['title']); ?></h3>
+                    <p><?php echo htmlspecialchars($project['description']); ?></p>
+                    <a href="<?php echo htmlspecialchars($project['project_link']); ?>" target="_blank" style="color: #764ba2; font-weight: 600; font-size: 0.85rem;">View Source →</a>
+                </article>
+            <?php endforeach; ?>
+        </div>
 
-        while ($row = $result->fetch_assoc()):
-            $techs = array_filter(array_map('trim', explode(',', $row['technologies'] ?? '')));
-        ?>
-            <div class="project-card">
-                <h3><?php echo htmlspecialchars($row['title']); ?></h3>
-                <p class="project-date"><?php echo date('F j, Y', strtotime($row['created_at'])); ?></p>
-                <p><?php echo htmlspecialchars($row['description']); ?></p>
+        <div class="action-row">
+            <a href="projects.php" class="main-btn">Explore All Work</a>
 
-                <?php if (!empty($techs)): ?>
-                    <div class="project-tech">
-                        <?php foreach ($techs as $tech): ?>
-                            <span class="tech-badge"><?php echo htmlspecialchars($tech); ?></span>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-
-                <!-- View button logic (same as projects.php) -->
-                <?php
-                // Special case for Library Management System (case‑insensitive)
-                if (stripos($row['title'], 'library management system') !== false):
-                ?>
-                    <a class="view-btn" href="https://github.com/johnguteta465/-Online-Library-Management-System-OLMS-" target="_blank">View</a>
-                <?php elseif (!empty($row['project_link']) && filter_var($row['project_link'], FILTER_VALIDATE_URL)): ?>
-                    <a class="view-btn" href="<?php echo htmlspecialchars($row['project_link']); ?>" target="_blank">View</a>
-                <?php endif; ?>
+            <div class="mini-ai-trigger" onclick="openChat()">
+                <span style="font-size: 1.1rem;">💬</span>
+                <span>Ask AI Assistant</span>
             </div>
-        <?php endwhile; ?>
-    </div>
+        </div>
+    </section>
+</main>
 
-    <div class="view-all">
-        <a href="projects.php" class="btn-primary">View All Projects</a>
+<div id="mainChat">
+    <div class="chat-header" onclick="toggleChat()">
+        <span>💬 AI Assistant</span>
+        <span id="stateBtn">−</span>
+    </div>
+    <div class="chat-messages" id="chatDisplay">
+        <div class="msg msg-ai">Hi! I'm Yonas's AI assistant. How can I help you today?</div>
+    </div>
+    <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
     </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<script>
+    const chat = document.getElementById('mainChat');
+    const display = document.getElementById('chatDisplay');
+    const input = document.getElementById('chatInput');
+    const stateBtn = document.getElementById('stateBtn');
+
+    // Open chat when the "Ask AI" button is clicked
+    function openChat() {
+        chat.classList.add('active');
+        chat.classList.remove('minimized');
+        stateBtn.innerText = '−';
+        input.focus();
+    }
+
+    // Toggle between minimized and expanded
+    function toggleChat() {
+        chat.classList.toggle('minimized');
+        stateBtn.innerText = chat.classList.contains('minimized') ? '+' : '−';
+    }
+
+    async function sendMessage() {
+        const text = input.value.trim();
+        if (!text) return;
+
+        appendMessage(text, 'user');
+        input.value = '';
+
+        const loader = appendMessage("Thinking...", 'ai');
+
+        try {
+            const response = await fetch("ai-chat.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: text
+                })
+            });
+            const data = await response.json();
+            loader.innerText = data.reply || "I'm having trouble thinking right now.";
+        } catch (err) {
+            loader.innerText = "Connection error.";
+        }
+    }
+
+    function appendMessage(txt, sender) {
+        const div = document.createElement('div');
+        div.className = `msg msg-${sender}`;
+        div.innerText = txt;
+        display.appendChild(div);
+        display.scrollTop = display.scrollHeight;
+        return div;
+    }
+
+    input.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") sendMessage();
+    });
+</script>
+
+<?php
+// 2. FOOTER: Make sure your footer.php is clean of chat code!
+include 'footer.php';
+?>
