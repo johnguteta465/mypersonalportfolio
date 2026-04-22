@@ -69,7 +69,7 @@ Comprehensive training covering:
 
  Portfolio Website
 
-You can view my live portfolio here:
+You can view my live Demo portfolio here:
 
 [https://yonaspersonalportfolio.free.nf/](https://yonaspersonalportfolio.free.nf/)
 
