@@ -18,7 +18,9 @@ My approach focuses on:
 🚀 Core Expertise
 
 Frontend: HTML, CSS, JavaScript, React
+
 Backend: Node.js, PHP
+
 Database: MySQL, MongoDB
 
 
