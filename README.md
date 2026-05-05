@@ -17,34 +17,9 @@ My approach focuses on:
 
 🚀 Core Expertise
 
-##Front-End Development
-
-* HTML5
-* CSS3
-* JavaScript
-* React.js
-* Angular
-
-I build responsive and interactive user interfaces that provide smooth user experiences.
-
-
-## Back-End & Database
-
-* PHP
-* Node.js
-* MySQL
-* MongoDB
-
-I develop server-side applications, APIs, and database systems that power dynamic web applications.
-
-
-🎓 Training & Mentorship
-
-* Vue.js
-* Django (Python)
-* Python
-
-I enjoy teaching and mentoring aspiring developers by simplifying complex topics and guiding them through real-world coding projects.
+Frontend: HTML, CSS, JavaScript, React
+Backend: Node.js, PHP
+Database: MySQL, MongoDB
 
 
 📜 Certifications
@@ -79,9 +54,9 @@ You can view my live Demo portfolio here:
 
 Feel free to connect with me for collaboration, learning, or project opportunities.
 
-* GitHub
-* LinkedIn
-* Email
+* GitHub   👉 https://github.com/johnguteta465
+* LinkedIn 👉 www.linkedin.com/in/yonas-guteta-1b427a38b
+* Email  👉 johnguteta465@gmail.com
 
 
 Future Improvements
